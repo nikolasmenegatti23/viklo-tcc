@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{{ perfume.titulo }} | VIKLO</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 30px;
+        background: #080b0c;
+        color: #f5eee4;
+        font-family: Arial, sans-serif;
+      }
+
+      .logo {
+        max-width: 1250px;
+        margin: 0 auto;
+        padding: 0 0 25px;
+        border-bottom: 1px solid #76552e;
+        color: #e5b36e;
+        font-family: Georgia, serif;
+        font-size: 30px;
+        letter-spacing: 9px;
+      }
+
+      .logo small {
+        display: block;
+        margin-top: 5px;
+        font-family: Arial, sans-serif;
+        font-size: 9px;
+        letter-spacing: 6px;
+      }
+
+      .detalhes {
+        max-width: 1250px;
+        margin: 50px auto;
+        display: grid;
+        grid-template-columns: 1.2fr 0.9fr;
+        gap: 55px;
+        align-items: center;
+      }
+
+      .galeria {
+        min-width: 0;
+        padding: 20px;
+        border: 1px solid #303437;
+        border-radius: 16px;
+      }
+
+      .imagem-principal {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 350px;
+        background: #0c0f10;
+        border: 1px solid #282a29;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .imagem-principal img {
+        display: block;
+        width: 100%;
+        height: 450px;
+        object-fit: contain;
+      }
+
+      .seta {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 46px;
+        height: 46px;
+        border: 1px solid #e5b36e;
+        border-radius: 50%;
+        background: #080b0c;
+        color: #e5b36e;
+        font-size: 25px;
+        cursor: pointer;
+        z-index: 1;
+      }
+
+      .seta:hover {
+        background: #e5b36e;
+        color: #080b0c;
+      }
+
+      .seta-anterior {
+        left: 15px;
+      }
+
+      .seta-seguinte {
+        right: 15px;
+      }
+
+      .miniaturas {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .miniatura {
+        width: 82px;
+        height: 82px;
+        padding: 3px;
+        border: 1px solid #393939;
+        border-radius: 8px;
+        background: #111;
+        cursor: pointer;
+      }
+
+      .miniatura img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .miniatura.ativa {
+        border: 2px solid #e5b36e;
+      }
+
+      .informacoes {
+        min-width: 0;
+      }
+
+      .colecao {
+        color: #bd9257;
+        font-size: 12px;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 22px 0;
+        font-family: Georgia, serif;
+        font-size: clamp(32px, 4vw, 54px);
+        font-weight: normal;
+        overflow-wrap: anywhere;
+      }
+
+      .genero {
+        display: inline-block;
+        padding: 12px 22px;
+        border: 1px solid #e5b36e;
+        border-radius: 30px;
+        color: #e5b36e;
+      }
+
+      .linha-dourada {
+        width: 70px;
+        height: 3px;
+        margin: 40px 0;
+        background: #e5b36e;
+      }
+
+      h2 {
+        font-family: Georgia, serif;
+        font-size: 23px;
+      }
+
+      .descricao {
+        color: #d8d5d0;
+        font-size: 17px;
+        line-height: 1.8;
+        overflow-wrap: anywhere;
+      }
+
+      .voltar {
+        display: inline-block;
+        margin-top: 25px;
+        padding: 16px 28px;
+        background: linear-gradient(100deg, #e8bd7a, #d6a45b);
+        color: #111;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: bold;
+      }
+
+      .voltar:hover {
+        background: #f1ce94;
+      }
+
+      footer {
+        max-width: 1250px;
+        margin: 80px auto 10px;
+        padding-top: 25px;
+        border-top: 1px solid #76552e;
+        color: #bd9257;
+        text-align: center;
+        letter-spacing: 7px;
+      }
+
+      footer small {
+        display: block;
+        margin-top: 10px;
+        color: #777;
+        font-size: 9px;
+        letter-spacing: 3px;
+      }
+
+      @media (max-width: 800px) {
+        body {
+          padding: 18px;
+        }
+
+        .detalhes {
+          grid-template-columns: 1fr;
+          gap: 35px;
+          margin-top: 30px;
+        }
+
+        .galeria {
+          padding: 10px;
+        }
+
+        .imagem-principal img {
+          height: 330px;
+        }
+
+        .miniatura {
+          width: 65px;
+          height: 65px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="logo">
+      VIKLO
+      <small>PERFUMES</small>
+    </header>
+
+    <main class="detalhes">
+      <section class="galeria">
+        <div class="imagem-principal">
+          <img id="imagem-atual" src="" alt="{{ perfume.titulo }}" />
+
+          <button
+            class="seta seta-anterior"
+            onclick="mudarImagem(-1)"
+            type="button"
+          >
+            ‹
+          </button>
+
+          <button
+            class="seta seta-seguinte"
+            onclick="mudarImagem(1)"
+            type="button"
+          >
+            ›
+          </button>
+        </div>
+
+        <div class="miniaturas">
+          {% if perfume.imagem %}
+          <button
+            class="miniatura ativa"
+            type="button"
+            onclick="selecionarImagem(0)"
+          >
+            <img src="{{ perfume.imagem.url }}" alt="Imagem principal" />
+          </button>
+          {% endif %} {% for foto in imagens %}
+          <button
+            class="miniatura"
+            type="button"
+            onclick="selecionarImagem(this.dataset.indice)"
+            data-indice="{{ forloop.counter }}"
+          >
+            <img src="{{ foto.imagem.url }}" alt="Foto adicional" />
+          </button>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="informacoes">
+        <div class="colecao">Coleção exclusiva</div>
+
+        <h1>{{ perfume.titulo }}</h1>
+
+        <div class="genero">✧ {{ genero }}</div>
+
+        <div class="linha-dourada"></div>
+
+        <h2>Descrição</h2>
+        <p class="descricao">{{ perfume.descricao }}</p>
+
+        <h2>Género</h2>
+        <p class="descricao">{{ genero }}</p>
+
+        <a href="{% url 'catalogo' %}" class="voltar"> ← Voltar ao catálogo </a>
+      </section>
+    </main>
+
+    <footer>
+      VIKLO
+      <small>MAIS QUE PERFUMES, ÉS TU.</small>
+    </footer>
+
+    <script id="dados-imagens" type="application/json">
+      [
+          {% if perfume.imagem %}
+              "{{ perfume.imagem.url|escapejs }}",
+          {% endif %}
+          {% for foto in imagens %}
+              "{{ foto.imagem.url|escapejs }}"{% if not forloop.last %},{% endif %}
+          {% endfor %}
+      ]
+    </script>
+
+    <script>
+      const listaImagens = JSON.parse(
+        document.getElementById("dados-imagens").textContent,
+      );
+
+      let indiceAtual = 0;
+
+      function mostrarImagem(indice) {
+        const principal = document.getElementById("imagem-atual");
+
+        const miniaturas = document.querySelectorAll(".miniatura");
+
+        if (listaImagens.length === 0) {
+          return;
+        }
+
+        indiceAtual = (indice + listaImagens.length) % listaImagens.length;
+
+        principal.src = listaImagens[indiceAtual];
+
+        miniaturas.forEach((botao, i) => {
+          botao.classList.toggle("ativa", i === indiceAtual);
+        });
+      }
+
+      function mudarImagem(direcao) {
+        mostrarImagem(indiceAtual + Number(direcao));
+      }
+
+      function selecionarImagem(indice) {
+        mostrarImagem(Number(indice));
+      }
+
+      // Mostrar automaticamente a primeira fotografia
+      mostrarImagem(0);
+    </script>
+  </body>
+</html>

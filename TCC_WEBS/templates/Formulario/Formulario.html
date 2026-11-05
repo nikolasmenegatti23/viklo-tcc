@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulário</title>
+    <style>
+      /* CSS da página ficará aqui */
+
+      fieldset {
+        border: none;
+        border-bottom: 1px solid #705638;
+
+        padding: 0 0 18px 0;
+        margin-bottom: 30px;
+      }
+
+      fieldset b {
+        color: #e0b77f;
+        font-size: 22px;
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+
+      .nave {
+        width: 100%;
+        height: 90px;
+        background-color: #0b0909;
+        border-bottom: 1px solid #b89565;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 60px;
+        box-sizing: border-box;
+      }
+
+      .logo h1 {
+        color: white;
+        font-size: 32px;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        letter-spacing: 2px;
+      }
+
+      .menu a {
+        color: #d6ad79;
+        text-decoration: none;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+
+        border: 1px solid #b89565;
+        padding: 14px 30px;
+        border-radius: 12px;
+
+        transition: 0.3s;
+      }
+
+      .menu a:hover {
+        background-color: #b89565;
+        color: #0b0909;
+      }
+
+      body {
+        margin: 0;
+        background-color: #0b0909;
+        font-family: Arial, sans-serif;
+        color: white;
+      }
+
+      .box {
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 40px;
+
+        background-color: #151111;
+        border: 1px solid #a98251;
+        border-radius: 18px;
+
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+        box-sizing: border-box;
+      }
+
+      .inputBox {
+        margin-bottom: 25px;
+      }
+
+      .inputUser {
+        width: 100%;
+        padding: 15px;
+
+        background-color: #211b1b;
+        border: 1px solid #59452f;
+        border-radius: 8px;
+
+        color: white;
+        font-size: 15px;
+
+        outline: none;
+        box-sizing: border-box;
+
+        transition: 0.3s;
+      }
+
+      .inputUser:focus {
+        border-color: #d6ad79;
+        box-shadow: 0 0 8px rgba(214, 173, 121, 0.3);
+      }
+
+      .inputBox label {
+        display: block;
+        color: #d6ad79;
+        font-size: 14px;
+        margin-top: 8px;
+      }
+
+      input[type="file"] {
+        color: #c5bdb5;
+        font-size: 13px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+
+      input[type="file"]::file-selector-button {
+        background-color: #211b1b;
+        color: #d6ad79;
+
+        border: 1px solid #b89565;
+        border-radius: 20px;
+
+        padding: 10px 22px;
+        margin-right: 15px;
+
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      input[type="file"]::file-selector-button:hover {
+        background-color: #b89565;
+        color: #100d0d;
+      }
+
+      #submit {
+        width: 100%;
+        padding: 15px;
+
+        background-color: #c49a65;
+        color: #100d0d;
+
+        border: none;
+        border-radius: 10px;
+
+        font-size: 16px;
+        font-weight: bold;
+
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      #submit:hover {
+        background-color: #e0b77f;
+        transform: translateY(-2px);
+      }
+
+      /* TITULO E DESCRIÇÃO LADO A LADO */
+      .linha-campos {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+      }
+
+      .linha-campos .inputBox {
+        margin-bottom: 25px;
+      }
+
+      /* ÁREA DE IMAGENS */
+      .area-imagem {
+        margin-top: 35px;
+        margin-bottom: 30px;
+      }
+
+      /* TÍTULO DA IMAGEM */
+      .area-imagem label {
+        display: block;
+        color: #e0b77f;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      /* TEXTO DE ORIENTAÇÃO */
+      .area-imagem p {
+        color: #a9a09a;
+        font-size: 13px;
+        margin-bottom: 15px;
+      }
+
+      /* PRÉVIA DA IMAGEM PRINCIPAL */
+
+      #preview-container {
+        display: none;
+        margin-top: 20px;
+      }
+
+      #preview-image {
+        width: 160px;
+        height: 180px;
+        object-fit: contain;
+
+        background-color: #211b1b;
+        border: 1px solid #a98251;
+        border-radius: 12px;
+
+        padding: 10px;
+        box-sizing: border-box;
+      }
+      /* PRÉVIA DAS OUTRAS IMAGENS */
+
+      #preview-outras-imagens {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      #preview-outras-imagens img {
+        width: 110px;
+        height: 120px;
+        object-fit: contain;
+
+        background-color: #211b1b;
+        border: 1px solid #a98251;
+        border-radius: 10px;
+
+        padding: 8px;
+        box-sizing: border-box;
+      }
+
+      /* Esconder o texto "Nenhum arquivo escolhido" */
+      input[type="file"] {
+        font-size: 0;
+      }
+
+      input[type="file"]::file-selector-button {
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nave">
+      <div class="logo">
+        <h1>viklo</h1>
+      </div>
+
+      <div class="menu">
+        <a href="/catalogo/">Início</a>
+      </div>
+    </nav>
+
+    <div class="box">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <fieldset><b>Cadastro de perfumes</b></fieldset>
+
+        <br />
+
+        <!-- TITULO E DESCRIÇÃO -->
+        <div class="linha-campos">
+          <div class="inputBox">
+            <input
+              type="text"
+              name="titulo"
+              id="titulo"
+              class="inputUser"
+              required
+            />
+            <label for="titulo">Título</label>
+          </div>
+
+          <div class="inputBox">
+            <input
+              type="text"
+              name="descricao"
+              id="descricao"
+              class="inputUser"
+              required
+            />
+            <label for="descricao">Descrição</label>
+          </div>
+        </div>
+
+        <!-- GÊNERO -->
+        <div class="inputBox">
+          <select id="tipo" name="tipo" class="inputUser" required>
+            <option value="masculino">Masculino</option>
+            <option value="feminino">Feminino</option>
+            <option value="unisess">Unissex</option>
+          </select>
+
+          <label for="tipo">Gênero do perfume</label>
+        </div>
+
+        <br /><br />
+
+        <!-- IMAGEM PRINCIPAL -->
+        <div class="area-imagem">
+          <label for="imagem">Imagem principal</label>
+
+          <p>Selecione a foto de capa do perfume.</p>
+
+          <input
+            type="file"
+            name="imagem"
+            id="imagem"
+            accept="image/*"
+            required
+          />
+        </div>
+
+        <!-- PRÉVIA DA IMAGEM PRINCIPAL -->
+        <div id="preview-container">
+          <img id="preview-image" src="" alt="Prévia do perfume" />
+        </div>
+
+        <br />
+
+        <!-- OUTRAS IMAGENS -->
+        <div class="area-imagem">
+          <label for="imagens">Outras imagens do perfume</label>
+
+          <p>Adicione fotos do perfume em outros ângulos.</p>
+
+          <input
+            type="file"
+            name="imagens"
+            id="imagens"
+            accept="image/*"
+            multiple
+          />
+        </div>
+        <!-- PRÉVIA DAS OUTRAS IMAGENS -->
+        <div id="preview-outras-imagens"></div>
+        <br />
+
+        <!-- SALVAR -->
+        <input type="submit" name="submit" id="submit" value="Salvar" />
+      </form>
+    </div>
+    <script>
+      const imagem = document.getElementById("imagem");
+      const preview = document.getElementById("preview-image");
+      const container = document.getElementById("preview-container");
+
+      imagem.addEventListener("change", function () {
+        const arquivo = imagem.files[0];
+
+        if (arquivo) {
+          preview.src = URL.createObjectURL(arquivo);
+          container.style.display = "block";
+        } else {
+          preview.src = "";
+          container.style.display = "none";
+        }
+      });
+
+      const imagens = document.getElementById("imagens");
+      const previewOutras = document.getElementById("preview-outras-imagens");
+
+      imagens.addEventListener("change", function () {
+        previewOutras.innerHTML = "";
+
+        const arquivos = imagens.files;
+
+        for (let i = 0; i < arquivos.length; i++) {
+          const arquivo = arquivos[i];
+
+          if (arquivo.type.startsWith("image/")) {
+            const img = document.createElement("img");
+            img.src = URL.createObjectURL(arquivo);
+            img.alt = "Prévia da imagem " + (i + 1);
+
+            previewOutras.appendChild(img);
+          }
+        }
+      });
+    </script>
+    s
+  </body>
+</html>

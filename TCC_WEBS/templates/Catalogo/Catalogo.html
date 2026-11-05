@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <link
+      rel="stylesheet"
+      href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   
+<nav class="navbar navbar-dark viklo-navbar">
+    <div class="container-fluid">
+
+        <a class="navbar-brand viklo-logo" href="/catalogo/">
+            VIKLO
+            <span>PERFUMES</span>
+        </a>
+
+   
+
+        <form class="viklo-pesquisa" action="/catalogo/" method="get">
+        <input
+    type="search"
+    name="q"
+    value="{{ busca }}"
+    placeholder="Buscar perfume..."
+    aria-label="Buscar perfume"
+>
+            <button type="submit">Buscar</button>
+        </form>
+
+    </div>
+</nav>
+
+
+    <a href="{% url 'formulario' %}">
+      <button type="button" class="btn btn-outline-danger botao-adm">
+        Cadastro
+      </button>
+    </a>
+    <style>
+     
+      body {
+        background-color: #080b0f;
+        color: #f5f5f5;
+        font-family: Arial, sans-serif;
+      }
+
+      
+      h1 {
+        color: #d9a45b;
+      }
+
+      
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        padding: 20px;
+      }
+
+      
+      .card {
+        background-color: #12171c;
+        color: white;
+        border: 1px solid #343a40;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: 0.3s;
+      }
+
+      
+      .card:hover {
+        transform: translateY(-5px);
+        border-color: #d9a45b;
+      }
+
+      
+      .card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+      }
+
+      
+      .card a {
+        display: inline-block;
+        background-color: #d9a45b;
+        color: #111;
+        padding: 10px 15px;
+        border-radius: 7px;
+        text-decoration: none;
+        margin: 12px;
+      }
+
+      .card a:hover {
+        background-color: #f0c681;
+      }
+
+      nav.navbar {
+        width: 100%;
+      }
+
+      nav.navbar .container-fluid {
+        width: 100%;
+      }
+
+      .botao-adm {
+    position: absolute;
+    top: 90px;
+    right: 25px;
+    z-index: 10;
+    background-color: #080b0f;
+    color: #d9a45b;
+    border: 1px solid #d9a45b;
+    border-radius: 8px;
+    padding: 8px 16px;
+}
+
+.botao-adm:hover {
+    background-color: #d9a45b;
+    color: #080b0f;
+}
+
+      .cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .card-img-top {
+        height: 220px;
+        object-fit: cover;
+      }
+      
+      .subtitulo {
+        color: #d9a45b;
+        letter-spacing: 4px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .catalogo-topo h1 {
+        color: #ffffff;
+        font-size: clamp(28px, 4vw, 46px);
+        margin: 15px 0;
+      }
+
+      .catalogo-topo p {
+        color: #bdbdbd;
+      }
+
+      
+      .barra-categorias {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 25px 5%;
+      }
+
+      .filtro {
+        background: #15191e;
+        color: white;
+        border: 1px solid #343a40;
+        padding: 11px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .filtro:hover,
+      .filtro.ativo {
+        background: #d9a45b;
+        color: #111;
+        border-color: #d9a45b;
+      }
+
+      
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 22px;
+        padding: 10px 5% 40px;
+        align-items: stretch;
+      }
+
+      
+      .card {
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        box-sizing: border-box;
+        background: #111519;
+        border: 1px solid #343a40;
+        border-radius: 14px;
+        overflow: hidden;
+        color: white;
+        transition:
+          transform 0.25s,
+          border-color 0.25s;
+      }
+
+      .card:hover {
+        transform: translateY(-6px);
+        border-color: #d9a45b;
+        box-shadow: 0 10px 30px #00000055;
+      }
+
+      /* IMAGEM */
+      .imagem-container {
+        height: 220px;
+        position: relative;
+        overflow: hidden;
+        background: #202329;
+      }
+
+      .card-img-top {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s;
+      }
+
+      .card:hover .card-img-top {
+        transform: scale(1.05);
+      }
+
+      .etiqueta {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: #111c;
+        color: #e8b66e;
+        border: 1px solid #d9a45b88;
+        border-radius: 20px;
+        padding: 6px 10px;
+        font-size: 10px;
+        letter-spacing: 1px;
+      }
+
+      
+      .card-body {
+        padding: 16px;
+      }
+
+      .card-title {
+        color: #ffffff;
+        font-size: 18px;
+        margin: 0 0 10px;
+        overflow-wrap: anywhere;
+      }
+
+      .card-text {
+        color: #b6bbc1;
+        font-size: 13px;
+        line-height: 1.6;
+        min-height: 62px;
+      }
+
+      
+      .botao-detalhes {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        background: linear-gradient(100deg, #edc17f, #bd813c);
+        color: #17110a;
+        padding: 12px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 15px;
+        transition: 0.2s;
+      }
+
+      .botao-detalhes:hover {
+        filter: brightness(1.12);
+      }
+
+      .botao-detalhes span {
+        font-size: 20px;
+      }
+
+      /* TABLETS */
+      @media (max-width: 1000px) {
+        .cards {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      /* CELULARES */
+      @media (max-width: 520px) {
+        .cards {
+          grid-template-columns: 1fr;
+          padding: 10px 16px 30px;
+        }
+
+        .imagem-container {
+          height: 240px;
+        }
+
+        .barra-categorias {
+          padding: 20px 16px;
+          gap: 8px;
+        }
+
+        .filtro {
+          padding: 10px 14px;
+        }
+      }
+
+      
+
+.viklo-navbar {
+    background: #080b0f;
+    border-bottom: 1px solid #332719;
+    padding: 14px 5%;
+}
+
+.viklo-navbar .container-fluid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.viklo-logo {
+    color: #e5ad60 !important;
+    font-size: 27px;
+    letter-spacing: 5px;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.viklo-logo span {
+    display: block;
+    text-align: center;
+    font-size: 9px;
+    letter-spacing: 4px;
+    margin-top: 6px;
+}
+
+.viklo-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.viklo-links a {
+    color: #dedede;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.viklo-links a:hover {
+    color: #e5ad60;
+}
+
+.viklo-pesquisa {
+    display: flex;
+    gap: 8px;
+}
+
+.viklo-pesquisa input {
+    width: 190px;
+    background: #15191e;
+    border: 1px solid #343a40;
+    border-radius: 20px;
+    padding: 10px 14px;
+    color: white;
+}
+
+.viklo-pesquisa button {
+    background: #d9a45b;
+    color: #111;
+    border: none;
+    border-radius: 20px;
+    padding: 9px 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.viklo-pesquisa button:hover {
+    background: #f0c681;
+}
+
+/* ADAPTAÇÃO PARA TELAS MENORES */
+@media (max-width: 900px) {
+    .viklo-navbar .container-fluid {
+        flex-wrap: wrap;
+    }
+
+    .viklo-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .viklo-pesquisa input {
+        width: 150px;
+    }
+}
+
+@media (max-width: 500px) {
+    .viklo-navbar .container-fluid {
+        justify-content: center;
+    }
+
+    .viklo-pesquisa {
+        width: 100%;
+    }
+
+    .viklo-pesquisa input {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+
+
+.catalogo-topo {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 40px;
+    padding: 55px 5%;
+    min-height: 340px;
+    background:
+        radial-gradient(ellipse at 80% 50%, #352515 0%, transparent 55%),
+        linear-gradient(110deg, #080b0f, #17120d);
+    border-bottom: 1px solid #3b2b19;
+    overflow: hidden;
+}
+
+.banner-conteudo {
+    max-width: 600px;
+}
+
+.banner-conteudo .subtitulo {
+    color: #e5ad60;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 4px;
+}
+
+.banner-conteudo h1 {
+    color: #ffffff;
+    font-size: clamp(30px, 4vw, 52px);
+    line-height: 1.15;
+    margin: 22px 0 16px;
+}
+
+.banner-conteudo p {
+    color: #c2c2c2;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.banner-botao {
+    display: inline-flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 20px;
+    padding: 13px 20px;
+    border-radius: 8px;
+    background: linear-gradient(110deg, #f0c681, #bd8137);
+    color: #17110a;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.banner-botao:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px #d9a45b33;
+}
+
+.banner-imagem-unica {
+    display: block;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    border: none;
+    border-radius: 0;
+}
+
+.banner-imagem-unica img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.5s;
+}
+
+.banner-imagem {
+    height: 260px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #614622;
+    box-shadow: 0 15px 45px #00000055;
+}
+
+.banner-imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.banner-imagem:hover img {
+    transform: scale(1.06);
+}
+
+.banner-imagem:hover img {
+    transform: scale(1.06);
+}
+
+@media (max-width: 700px) {
+    .catalogo-topo {
+        grid-template-columns: 1fr;
+        padding: 35px 6%;
+        gap: 25px;
+    }
+
+    .banner-imagem {
+        height: 220px;
+    }
+}
+
+.paginacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 30px;
+    flex-wrap: wrap;
+}
+
+.paginacao a,
+.paginacao span {
+    padding: 12px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.paginacao a {
+    background: #15191e;
+    color: #e5ad60;
+    border: 1px solid #343a40;
+}
+
+.paginacao a:hover {
+    background: #d9a45b;
+    color: #080b0f;
+}
+
+.paginacao .pagina-ativa {
+    background: #d9a45b;
+    color: #080b0f;
+}
+/* AJUSTE DO BOTÃO ADM NO CELULAR */
+@media (max-width: 500px) {
+    .botao-adm {
+        position: static;
+        display: block;
+        margin: 10px auto;
+        width: fit-content;
+    }
+}
+
+    </style>
+
+   
+<div class="catalogo-topo">
+    <div class="banner-conteudo">
+        <span class="subtitulo">VIKLO PERFUMES · NOSSA COLEÇÃO EXCLUSIVA</span>
+
+        <h1>Descubra sua próxima fragrância.</h1>
+
+        <p>Perfumes marcantes para expressar seu estilo e sua identidade.</p>
+
+        <a href="#lista-perfumes" class="banner-botao">
+            Explorar coleção <span>→</span>
+        </a>
+    </div>
+
+    <div class="banner-imagem">
+        <img src="/media/perfumes/banner-viklo1.png" alt="Banner de perfumes VIKLO">
+    </div>
+</div>
+
+
+    <div class="barra-categorias">
+      <button class="filtro ativo" onclick="filtrarPerfumes('todos', this)">
+        Todos
+      </button>
+      <button class="filtro" onclick="filtrarPerfumes('masculino', this)">
+        Masculino
+      </button>
+      <button class="filtro" onclick="filtrarPerfumes('feminino', this)">
+        Feminino
+      </button>
+      <button class="filtro" onclick="filtrarPerfumes('unissex', this)">
+        Unissex
+      </button>
+    </div>
+
+    <div class="cards" id="lista-perfumes">
+      {% for perfume in perfumes %}
+      <div class="card" data-tipo="{{ perfume.tipo|default:''|lower }}">
+        <div class="imagem-container">
+
+    {% if perfume.imagem %}
+
+       {% if perfume.imagem %}
+    <img src="{{ perfume.imagem.url }}"
+         class="card-img-top"
+         alt="{{ perfume.titulo }}" />
+
+{% else %}
+    {% with primeira=perfume.imagens.first %}
+        {% if primeira %}
+            <img src="{{ primeira.imagem.url }}"
+                 class="card-img-top"
+                 alt="{{ perfume.titulo }}" />
+        {% else %}
+            <div class="card-img-top">
+                Imagem não disponível
+            </div>
+        {% endif %}
+    {% endwith %}
+{% endif %}
+
+    {% else %}
+
+        <div class="sem-imagem">
+            Imagem não disponível
+        </div>
+
+    {% endif %}
+
+    <span class="etiqueta">VIKLO PERFUMES</span>
+
+</div>
+
+        <div class="card-body">
+          <h2 class="card-title">{{ perfume.titulo }}</h2>
+
+          <p class="card-text">{{ perfume.descricao|truncatechars:110 }}</p>
+
+         <a href="{% url 'detalhes_perfume' perfume.id %}" class="botao-detalhes">
+    Ver perfume <span>→</span>
+  </a>
+        </div>
+      </div>
+      {% empty %}
+      <p>Nenhum perfume cadastrado ainda.</p>
+      {% endfor %}
+    </div>
+
+    {% if pagina.paginator.num_pages > 1 %}
+
+<nav class="paginacao">
+
+    {% if pagina.has_previous %}
+        <a href="?q={{ busca|urlencode }}&page={{ pagina.previous_page_number }}">
+            ← Anterior
+        </a>
+    {% endif %}
+
+    {% for numero in pagina.paginator.page_range %}
+
+        {% if pagina.number == numero %}
+            <span class="pagina-ativa">{{ numero }}</span>
+        {% else %}
+            <a href="?q={{ busca|urlencode }}&page={{ numero }}">
+                {{ numero }}
+            </a>
+        {% endif %}
+
+    {% endfor %}
+
+    {% if pagina.has_next %}
+        <a href="?q={{ busca|urlencode }}&page={{ pagina.next_page_number }}">
+            Próxima →
+        </a>
+    {% endif %}
+
+</nav>
+
+{% endif %}
+
+   <script>
+function filtrarPerfumes(categoria, botao) {
+    document.querySelectorAll(".barra-categorias .filtro").forEach(function(item) {
+        item.classList.remove("ativo");
+    });
+
+    botao.classList.add("ativo");
+
+    document.querySelectorAll(".card").forEach(function(card) {
+        const tipo = (card.dataset.tipo || "").trim().toLowerCase();
+
+        if (categoria === "todos" || tipo.includes(categoria)) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+</script>
+  </body>
+</html>
