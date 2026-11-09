@@ -19,6 +19,7 @@ from django.urls import path
 from TCC_WEBS import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.shortcuts import redirect
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +29,8 @@ urlpatterns = [
     path('perfume/<int:id>/', views.detalhes_perfume, name='detalhes_perfume'),
 
      path('formulario/', views.formulario, name='formulario'),
+
+     path('', lambda request: redirect('catalogo')),
 ]
 
 if settings.DEBUG:
