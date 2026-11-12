@@ -1,5 +1,5 @@
 # ETEC DE SANTA ROSA DE VITERBO
-## [NOME DO CURSO]
+## PROGRAMAÇÃO DE JOGOS DIGITAIS
 
 <br>
 
@@ -8,11 +8,12 @@
 
 <br>
 
-**[NOME COMPLETO DO ALUNO 1]**  
-**[NOME COMPLETO DO ALUNO 2]**  
-**[NOME COMPLETO DO ALUNO 3]**  
+**Nikolas Marques Menegatti**  
+**Pablo Rosê Alves De Moraes**  
+**Vitor Hugo de Oliveira**  
 
-**Professor(a) orientador(a): [NOME DO PROFESSOR ORIENTADOR]**
+**Professor orientador: Daniel Luis Dias da Silva**  
+**Professora orientadora: Elisângela Gimenes**
 
 <br>
 

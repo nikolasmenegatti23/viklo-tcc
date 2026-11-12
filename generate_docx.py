@@ -80,17 +80,18 @@ def build_document():
 
     # 1. CABEÇALHO INSTITUCIONAL
     add_p("ETEC DE SANTA ROSA DE VITERBO", align=WD_ALIGN_PARAGRAPH.CENTER, space_before=0, space_after=2, line_spacing=1.0, bold=True)
-    add_p("[NOME DO CURSO]", align=WD_ALIGN_PARAGRAPH.CENTER, space_before=0, space_after=18, line_spacing=1.0, bold=True)
+    add_p("PROGRAMAÇÃO DE JOGOS DIGITAIS", align=WD_ALIGN_PARAGRAPH.CENTER, space_before=0, space_after=18, line_spacing=1.0, bold=True)
 
     # 2. TÍTULO E SUBTÍTULO
     add_p("VIKLO PERFUMES: DESENVOLVIMENTO DE UM SISTEMA WEB PARA CATÁLOGO, BUSCA DINÂMICA E GESTÃO DE PRODUTOS DE PERFUMARIA", align=WD_ALIGN_PARAGRAPH.CENTER, space_before=0, space_after=4, line_spacing=1.0, bold=True, font_size=14)
     add_p("Desenvolvimento de uma vitrine digital responsiva utilizando Python, Django e Bootstrap 5", align=WD_ALIGN_PARAGRAPH.CENTER, space_before=0, space_after=18, line_spacing=1.0, italic=False, font_size=12)
 
-    # 3. AUTORES E ORIENTADOR
-    add_p("[NOME COMPLETO DO ALUNO 1]", align=WD_ALIGN_PARAGRAPH.CENTER, space_before=0, space_after=2, line_spacing=1.0)
-    add_p("[NOME COMPLETO DO ALUNO 2]", align=WD_ALIGN_PARAGRAPH.CENTER, space_before=0, space_after=2, line_spacing=1.0)
-    add_p("[NOME COMPLETO DO ALUNO 3]", align=WD_ALIGN_PARAGRAPH.CENTER, space_before=0, space_after=4, line_spacing=1.0)
-    add_p("Professor(a) orientador(a): [NOME DO PROFESSOR ORIENTADOR]", align=WD_ALIGN_PARAGRAPH.CENTER, space_before=0, space_after=18, line_spacing=1.0)
+    # 3. AUTORES E ORIENTADORES
+    add_p("Nikolas Marques Menegatti", align=WD_ALIGN_PARAGRAPH.CENTER, space_before=0, space_after=2, line_spacing=1.0)
+    add_p("Pablo Rosê Alves De Moraes", align=WD_ALIGN_PARAGRAPH.CENTER, space_before=0, space_after=2, line_spacing=1.0)
+    add_p("Vitor Hugo de Oliveira", align=WD_ALIGN_PARAGRAPH.CENTER, space_before=0, space_after=6, line_spacing=1.0)
+    add_p("Professor orientador: Daniel Luis Dias da Silva", align=WD_ALIGN_PARAGRAPH.CENTER, space_before=0, space_after=2, line_spacing=1.0)
+    add_p("Professora orientadora: Elisângela Gimenes", align=WD_ALIGN_PARAGRAPH.CENTER, space_before=0, space_after=18, line_spacing=1.0)
 
     # 4. RESUMO
     add_p("RESUMO", align=WD_ALIGN_PARAGRAPH.CENTER, space_before=6, space_after=6, line_spacing=1.0, bold=True)
@@ -519,8 +520,13 @@ def build_document():
             r.font.size = Pt(12)
 
     output_filename = "Artigo_Cientifico_TCC_ETEC_SRV.docx"
-    doc.save(output_filename)
-    print(f"Documento gerado com sucesso: {output_filename}")
+    try:
+        doc.save(output_filename)
+        print(f"Documento gerado com sucesso: {output_filename}")
+    except PermissionError:
+        fallback_filename = "Artigo_Cientifico_TCC_ETEC_SRV_atualizado.docx"
+        doc.save(fallback_filename)
+        print(f"Aviso: '{output_filename}' está aberto no Word (ou bloqueado). Arquivo salvo com sucesso como '{fallback_filename}'. Feche o Word para atualizar o arquivo original.")
 
 if __name__ == "__main__":
     build_document()
